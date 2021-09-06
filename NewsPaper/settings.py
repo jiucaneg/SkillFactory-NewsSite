@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'news.apps.NewsConfig',
     'accounts.apps.AccountsConfig',
+    'djantimat',
 ]
 
 MIDDLEWARE = [

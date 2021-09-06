@@ -1,0 +1,28 @@
+<!--  наследуемся от шаблона default.html, который мы создавали ещё во времена flatpages -->
+{% extends 'default.html' %}
+
+<!-- Название у нас будет proudcts -->
+{% block title %}
+News
+{% endblock title %}
+
+<!-- В контенте на странице мы выводим все товары -->
+{% block content %}
+	<h1>Новость</h1>
+	<hr>
+	<table>
+		{% if post %}
+			<tr>
+				<td>
+					{{ post.title }}
+				</td>
+				<td>
+					{{ post.date_creation|date:'d-m-Y H:i' }}
+				</td>
+				<td>
+					{{ post.text }}
+				</td>
+			</tr>
+		{% endif %}
+	</table>
+{% endblock content %}
