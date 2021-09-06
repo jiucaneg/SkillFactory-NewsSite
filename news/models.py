@@ -51,6 +51,9 @@ class Post(models.Model):
     def preview(self):
         return self.text[0:123] + '...'
 
+    class Meta:
+        ordering = ['-date_creation']
+
 
 class PostCategory(models.Model):
     post_through = models.ForeignKey(Post, on_delete=models.CASCADE)
