@@ -20,7 +20,7 @@ News
 					{{ post.date_creation|date:'d-m-Y H:i' }}
 				</td>
 				<td>
-					{{ post.text }}
+					{{ post.text.text|truncatechars:50 }}
 				</td>
 			</tr>
 		{% endif %}

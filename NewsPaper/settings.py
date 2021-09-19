@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'news.apps.NewsConfig',
     'accounts.apps.AccountsConfig',
     'djantimat',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
