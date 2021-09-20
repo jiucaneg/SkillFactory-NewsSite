@@ -1,0 +1,41 @@
+{% extends 'default.html' %}
+ 
+{% block title %} News delete {% endblock title %}
+ 
+{% block content %}
+<h2>Вы действительно хотите удалить эту новость?</h2>
+	<table>
+		<thead>
+		<th>
+			Заголовок
+		</th>
+		<th>
+			Дата публикации
+		</th>
+		<th>
+			Содержание
+		</th>
+		<th>
+			Автор
+		</th>
+		</thead>
+		<tr>
+			<td>
+				{{ post.title }}
+			</td>
+			<td>
+				{{ post.date_creation|date:'d-m-Y H:i' }}
+			</td>
+			<td>
+				{{ post.text|truncatechars:50 }}
+			</td>
+			<td>
+				{{ post.author_us }}
+			</td>
+		</tr>
+	</table>
+ 
+<form method="POST">
+    {% csrf_token %}
+    <input type="submit" value="подтвердить"></form>
+{% endblock content %} 

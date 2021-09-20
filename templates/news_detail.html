@@ -11,6 +11,21 @@ News
 	<h1>Новость</h1>
 	<hr>
 	<table>
+		<thead>
+
+		<th>
+			Заголовок
+		</th>
+		<th>
+			Дата публикации
+		</th>
+		<th>
+			Содержание
+		</th>
+		<th>
+			Автор
+		</th>
+		</thead>
 		{% if post %}
 			<tr>
 				<td>
@@ -20,7 +35,10 @@ News
 					{{ post.date_creation|date:'d-m-Y H:i' }}
 				</td>
 				<td>
-					{{ post.text }}
+					{{ post.text|truncatechars:50 }}
+				</td>
+				<td>
+					{{ post.author_us }}
 				</td>
 			</tr>
 		{% endif %}

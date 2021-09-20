@@ -7,17 +7,20 @@ class Author(models.Model):
     author_user = models.OneToOneField(User, on_delete=models.CASCADE)
     rating_author = models.SmallIntegerField(default=0)
 
-    def update_rating(Author):
-        post_rat = Author.post_set.all().aggregate(postRating=Sum('rating'))
+    def __str__(self):
+        return str(self.author_user)
+
+    def update_rating(self):
+        post_rat = self.post_set.all().aggregate(postRating=Sum('rating'))
         p_rat = 0
         p_rat += post_rat.get('postRating')
 
-        comment_rat = Author.author_user.comment_set.all().aggregate(commentRating=Sum('rating'))
+        comment_rat = self.author_user.comment_set.all().aggregate(commentRating=Sum('rating'))
         c_rat = 0
         c_rat += comment_rat.get('commentRating')
 
-        Author.rating_author = p_rat * 3 + c_rat
-        Author.save()
+        self.rating_author = p_rat * 3 + c_rat
+        self.save()
 
 
 class Category(models.Model):
@@ -50,6 +53,9 @@ class Post(models.Model):
 
     def preview(self):
         return self.text[0:123] + '...'
+
+    def get_absolute_url(self):
+        return f'/news/{self.id}'
 
     class Meta:
         ordering = ['-date_creation']
