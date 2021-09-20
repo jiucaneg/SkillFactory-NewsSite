@@ -54,6 +54,9 @@ class Post(models.Model):
     def preview(self):
         return self.text[0:123] + '...'
 
+    def get_absolute_url(self):
+        return f'/news/{self.id}'
+
     class Meta:
         ordering = ['-date_creation']
 

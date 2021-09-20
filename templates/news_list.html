@@ -10,9 +10,11 @@ News
 {% block content %}
 	<h1>Все новости</h1>
 	<h5>Всего новостей: {{ news|length }}</h5>
+
 	<hr>
 	<table>
 		<thead>
+
 		<th>
 			Заголовок
 		</th>
@@ -22,17 +24,25 @@ News
 		<th>
 			Содержание
 		</th>
+		<th>
+			Автор
+		</th>
 		</thead>
 		{% for post in news %}
 			<tr>
 				<td>
-					{{ post.title }}
+					<a href="{% url 'news_detail' post.id %}">{{ post.title }}</a>
+					<a href="{% url 'news_edit' post.id %}"><u>Редактировать</u></a>
+					<a href="{% url 'news_delete' post.id %}"><u> Удалить </u></a>
 				</td>
 				<td>
 					{{ post.date_creation|date:'d-m-Y H:i' }}
 				</td>
 				<td>
 					{{ post.text|truncatechars:50 }}
+				</td>
+				<td>
+					{{ post.author_us }}
 				</td>
 			</tr>
 		{% endfor %}
