@@ -1,4 +1,5 @@
 from django.db.models.signals import post_save
+from decouple import config
 from django.dispatch import receiver  # импортируем нужный декоратор
 from .models import Post
 from django.template.loader import render_to_string
@@ -26,7 +27,7 @@ def notify_subscribers(sender, instance, created, **kwargs):
     msg = EmailMultiAlternatives(
         subject,
         body=instance.text,
-        from_email='jiucaneg2013@gmail.com',
+        from_email=config('EMAIL_HOST_USER'),
         to=[*address],
     )
     msg.attach_alternative(html_content, "text/html")  # добавляем html
