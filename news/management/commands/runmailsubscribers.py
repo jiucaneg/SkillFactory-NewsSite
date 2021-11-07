@@ -1,7 +1,7 @@
 import logging
 
 from django.conf import settings
-
+from decouple import config
 from apscheduler.schedulers.blocking import BlockingScheduler
 from apscheduler.triggers.cron import CronTrigger
 from django.core.mail import send_mail
@@ -28,7 +28,7 @@ def my_job():
             send_mail(
                 'Posts in week!',
                 'Посты за неделю: {url}',
-                from_email='jiucaneg2013@gmail.com',
+                from_email=config('EMAIL_HOST_USER'),
                 recipient_list=[subscriber.user.email, ],
             )
 
