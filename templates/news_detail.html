@@ -25,6 +25,9 @@ News
 		<th>
 			Автор
 		</th>
+		<th>
+			Категория
+		</th>
 		</thead>
 		{% if post %}
 			<tr>
@@ -39,6 +42,9 @@ News
 				</td>
 				<td>
 					{{ post.author_us }}
+				</td>
+				<td>
+					<a class="btn btn-primary" href="{% url 'subscribes' %}" role="button"> {{ post.post_category }} </a>
 				</td>
 			</tr>
 		{% endif %}

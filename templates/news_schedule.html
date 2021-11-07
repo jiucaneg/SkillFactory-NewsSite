@@ -1,16 +1,12 @@
-<!--  наследуемся от шаблона default.html, который мы создавали ещё во времена flatpages -->
-{% extends 'default.html' %}
+{% extends 'http://127.0.0.1:8000/default.html' %}
+{% load static %}
 
-<!-- Название у нас будет proudcts -->
 {% block title %}
-News
+Новости
 {% endblock title %}
 
-<!-- В контенте на странице мы выводим все товары -->
 {% block content %}
 <h1>Все новости</h1>
-<h5>Всего новостей: {{ news|length }}</h5>
-
 <hr>
 <table>
 	<thead>
@@ -30,13 +26,6 @@ News
 	<th>
 		Категория
 	</th>
-	<th>
-		{% if is_not_authors %}
-
-		{% else %}
-		Действие
-		{% endif %}
-	</th>
 	</thead>
 	{% for post in news %}
 	<tr>
@@ -54,14 +43,6 @@ News
 		</td>
 		<td>
 			{{ post.post_category }}
-		</td>
-		<td>
-			{% if is_not_authors %}
-
-			{% else %}
-			<a class="btn btn-primary" href="{% url 'news_edit' post.id %}" role="button">Редактировать</a>
-			<a class="btn btn-primary" href="{% url 'news_delete' post.id %}" role="button">Удалить</a>
-			{% endif %}
 		</td>
 	</tr>
 	{% endfor %}
@@ -89,6 +70,4 @@ News
 <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
 {% endif %}
 {% endif %}
-<a class="btn btn-primary" href="/sign/upgrade/" role="button">Стать автором</a>
-<a class="btn btn-primary" href="{% url 'news_add' %}" role="button">Add news</a>
 {% endblock content %}

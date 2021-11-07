@@ -1,0 +1,21 @@
+{% extends 'default.html' %}
+
+{% block title %}
+News
+{% endblock title %}
+
+{% block content %}
+<table>
+        <tr>
+            <td>
+                {{ post.title }}
+            </td>
+            <td>
+                {{ post.date_creation|date:'d-m-Y H:i' }}
+            </td>
+            <td>
+                {{ post.text|truncatechars:50 }}
+            </td>
+        </tr>
+</table>
+{% endblock content %}

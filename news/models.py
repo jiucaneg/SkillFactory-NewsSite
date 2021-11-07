@@ -25,10 +25,14 @@ class Author(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=64, unique=True)
+    subscribers = models.ManyToManyField(User)
+
+    def __str__(self):
+        return str(self.name)
 
 
 class Post(models.Model):
-    author_us = models.ForeignKey(Author, on_delete=models.CASCADE)
+    author_us = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='news',)
     NEWS = 'NW'
     ARTICLE = 'AR'
     CATEGORY_CHOICES = (
@@ -38,10 +42,13 @@ class Post(models.Model):
 
     category_type = models.CharField(max_length=2, choices=CATEGORY_CHOICES, default=ARTICLE)
     date_creation = models.DateTimeField(auto_now_add=True)
-    post_category = models.ManyToManyField(Category, through='PostCategory')
+    post_category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='news',)
     title = models.CharField(max_length=128)
     text = models.TextField()
     rating = models.SmallIntegerField(default=0)
+
+    def __str__(self):
+        return str(self.title)
 
     def like(self):
         self.rating += 1
@@ -59,11 +66,6 @@ class Post(models.Model):
 
     class Meta:
         ordering = ['-date_creation']
-
-
-class PostCategory(models.Model):
-    post_through = models.ForeignKey(Post, on_delete=models.CASCADE)
-    category_through = models.ForeignKey(Category, on_delete=models.CASCADE)
 
 
 class Comment(models.Model):

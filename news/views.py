@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, reverse, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 from .forms import PostForm
-from .models import Post
+from .models import Post, Category
 from .filters import PostFilter
 
 
@@ -65,3 +66,29 @@ class NewsDelete(PermissionRequiredMixin, DeleteView):
     template_name = 'news_delete.html'
     queryset = Post.objects.all()
     success_url = '/news/'
+
+
+class CategoryView(ListView):
+    model = Category
+    template_name = 'subscribes.html'
+    context_object_name = 'category'
+    queryset = Category.objects.all()
+    paginate_by = 10
+
+
+@login_required
+def subscribe_me(request, cat_id):
+    user = request.user
+    category = Category.objects.get(pk=cat_id)
+    if request.user not in category.subscribers.all():
+        category.subscribers.add(user)
+    return redirect('/news/categories/')
+
+
+@login_required
+def unsubscribe_me(request, cat_id):
+    user = request.user
+    category = Category.objects.get(pk=cat_id)
+    if request.user in category.subscribers.all():
+        category.subscribers.remove(user)
+    return redirect('/news/categories/')
