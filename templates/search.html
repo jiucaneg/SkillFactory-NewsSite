@@ -11,38 +11,6 @@ News
 		{{ filter.form }}
 		<input type="submit" value="Найти">
 	</form>
-	<table>
-		<thead>
-		<th>
-			Заголовок
-		</th>
-		<th>
-			Дата публикации
-		</th>
-		<th>
-			Содержание
-		</th>
-		<th>
-			Автор
-		</th>
-		</thead>
-		{% for post in filter.qs %}
-			<tr>
-				<td>
-					{{ post.title }}
-				</td>
-				<td>
-					{{ post.date_creation|date:'d-m-Y H:i' }}
-				</td>
-				<td>
-					{{ post.text|truncatechars:50 }}
-				</td>
-				<td>
-					{{ post.author_us }}
-				</td>
-			</tr>
-		{% endfor %}
-	</table>
 	{% if is_paginated %}
 
 		<!-- Если доступна предыдущая страница, то даём ссылку на неё и самую первую страницу -->
