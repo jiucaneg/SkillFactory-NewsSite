@@ -14,6 +14,8 @@
     </head>
     <body>
         <!-- Responsive navbar-->
+        {% load cache %}
+        {% cache 500 navbar %}
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
             <div class="container">
                 <a class="navbar-brand" href="{% url 'news' %}">News site</a>
@@ -42,6 +44,7 @@
                 </div>
             </div>
         </nav>
+        {% endcache %}
         <!-- Page content-->
         <div class="container">
             <div class="row">
